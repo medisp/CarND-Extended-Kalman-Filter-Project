@@ -23,7 +23,7 @@ void KalmanFilter::Predict() {
     * predict the state
   */
     x_ = F_ * x_;
-    MatrixXd Ft = F.transpose();
+    MatrixXd Ft = F_.transpose();
     P_ = F_ * P_ * Ft + Q_;
 
 }
@@ -72,7 +72,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     double phi = atan(x_(1) / x_(0));
     double drdt = (x_(0)*x_(2) + x_(1)*x_(3)) / rho;
     VectorXd h = VectorXd(3);
-    h << rho, theta, drdt;
+    h << rho, phi, drdt;
 
     VectorXd y = z - h;
 
