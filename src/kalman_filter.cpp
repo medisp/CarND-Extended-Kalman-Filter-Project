@@ -64,7 +64,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     drdt=(x*v1_y*vy)/rho ^^
     */
     double rho = sqrt(x_(0)*x_(0) + x_(1)*x_(1));
-    double phi = atan2(x_(1) / x_(0));
+    double phi = atan2(x_(1) , x_(0));
     double drdt = (x_(0)*x_(2) + x_(1)*x_(3)) / rho;
     VectorXd h = VectorXd(3);
     h << rho, phi, drdt;
@@ -81,7 +81,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 
 }
 
-KalmanFilter::UpdateCommonStep(const VectorXd& y) {
+void KalmanFilter::UpdateCommonStep(const VectorXd &y) {
 
 	MatrixXd Ht = H_.transpose();
 	MatrixXd S = H_ * P_ * Ht + R_;
